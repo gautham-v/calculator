@@ -1,0 +1,14 @@
+html {
+    font-family: sans-serif;
+}
+h1 {
+    text-align: center;
+}
+body {
+    padding-top: 50px;
+}
+.container {
+    margin: auto;
+    width: 70%;
+    padding: 10px;
+}
