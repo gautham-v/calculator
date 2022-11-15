@@ -40,8 +40,10 @@ function populateDisplay(e){
 	const functionals = ['clear','delete','='];
 
 	let result = '';
-	
+	console.log('hell0');
 	if(input in numbers && operator === ''){
+		console.log('hellonum');
+		console.log(input);
 		answerDisplay.textContent += input;
 		firstNum += input;
 	}
@@ -69,7 +71,8 @@ function populateDisplay(e){
 }
 
 function clearDisplay(){
-	display.innerHTML = '';
+	answerDisplay.innerHTML = '';
+	inputDisplay.innerHTML = '';
 	firstNum = '';
 	secondNum = '';
 	operator = '';
