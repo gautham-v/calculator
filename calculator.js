@@ -33,7 +33,25 @@ function operate(operator,a,b){
 }
 
 function populateDisplay(e){
-	input = e.currentTarget.value;
+	console.log(e);
+	if (e.type === 'click'){
+		input = e.currentTarget.value;
+	}
+	else{
+		input = e.key;
+		console.log(input);
+		if (input === 'Backspace'){
+			backspace();
+		}
+		else if (input === 'Enter'){
+			input = '=';
+		}
+		else if (input === 'Escape'){
+			clearDisplay();
+		}
+	}
+	
+	console.log(e.type);
 	const numbers = [0,1,2,3,4,5,6,7,8,9];
 	const operators = ['-','+','*','/'];
 
@@ -71,10 +89,6 @@ function populateDisplay(e){
 	else if (input === '=' && operator !== ''){
 		firstNum = Number(firstNum);
 		secondNum = Number(secondNum);
-		console.log(`firstNum: ${firstNum}`);
-		console.log(`secondNum: ${secondNum}`);
-		typeof(firstNum);
-		typeof(secondNum);
 		//check for dividing by 0
 		if (operator === '/' && secondNum === 0){
 			alert('Bleep Bloop! Can\'t divide by 0!');
@@ -108,12 +122,12 @@ function backspace(){
 	const displayNum = Number(answerDisplay.innerHTML);
 	if (displayNum == firstNum){
 		answerDisplay.innerHTML = answerDisplay.innerHTML.slice(0,-1);
-		firstNum = firstNum.slice(0,-1);
+		firstNum = String(firstNum).slice(0,-1);
 	}
 	else if (displayNum == secondNum){
 		answerDisplay.innerHTML = answerDisplay.innerHTML.slice(0,-1);
 		secondNum = secondNum.slice(0,-1);
-	}	
+	}
 }
 
 //query selectors
@@ -158,6 +172,9 @@ divideBtn.addEventListener("click",populateDisplay);
 clearBtn.addEventListener("click",clearDisplay);
 deleteBtn.addEventListener("click",backspace);
 equalsBtn.addEventListener("click",populateDisplay);
+
+//key event listener
+document.addEventListener('keydown', populateDisplay);
 
 var firstNum = '';
 var secondNum = '';
