@@ -15,18 +15,21 @@ function divide(a,b){
 }
 
 function operate(operator,a,b){
-	if (operator = 'add'){
-		add(a,b);
+	let result = 0;
+
+	if (operator === '+'){
+		result = add(a,b);
 	}
-	else if (operator = 'subtract'){
-		subtract(a,b);
+	else if (operator === '-'){
+		result = subtract(a,b);
 	}
-	else if (operator = 'multiply'){
-		multiply(a,b);
+	else if (operator === '*'){
+		result = multiply(a,b);
 	}
-	else if (operator = 'divide'){
-		divide(a,b);
+	else if (operator === '/'){
+		result = divide(a,b);
 	}
+	return result;
 }
 
 function populateDisplay(e){
@@ -35,18 +38,43 @@ function populateDisplay(e){
 	const numbers = [0,1,2,3,4,5,6,7,8,9];
 	const operators = ['-','+','*','/'];
 	const functionals = ['clear','delete','='];
+
+	let result = '';
 	
-	if(input in numbers || operators.includes(input)){
+	if(input in numbers && operator === ''){
 		display.textContent += input;
-		if (input in numbers){
-			firstNum += input;
-		}
+		firstNum += input;
 	}
-	console.log(firstNum);
+	else if(input in numbers && operator !== ''){
+		display.textContent += input;
+		secondNum += input;
+	}
+	else if (operators.includes(input)){
+		display.textContent += input;
+		operator = input;
+	}
+	else if (input === '='){
+		firstNum = Number(firstNum);
+		secondNum = Number(secondNum);
+		result = operate(operator,firstNum,secondNum);
+		answer.textContent += result;
+	}
+	console.log(result);
+}
+
+function clearDisplay(){
+	console.log(display.textContent);
+	console.log(display.innerHTML);
+	display.innerHTML = '';
+	console.log(display.innerHTML);
+	firstNum = '';
+	secondNum = '';
+	operator = '';
 }
 
 //query selectors
-let display = document.querySelector('.display');
+var display = document.querySelector('#display');
+let answer = document.querySelector('.answer');
 let zeroBtn = document.querySelector('.zero');
 let oneBtn = document.querySelector('.one');
 let twoBtn = document.querySelector('.two');
@@ -82,8 +110,10 @@ plusBtn.addEventListener("click",populateDisplay);
 minusBtn.addEventListener("click",populateDisplay);
 multiplyBtn.addEventListener("click",populateDisplay);
 divideBtn.addEventListener("click",populateDisplay);
-clearBtn.addEventListener("click",populateDisplay);
-deleteBtn.addEventListener("click",populateDisplay);
+clearBtn.addEventListener("click",clearDisplay);
+deleteBtn.addEventListener("click",clearDisplay);
 equalsBtn.addEventListener("click",populateDisplay);
 
 var firstNum = '';
+var secondNum = '';
+var operator = '';
