@@ -16,7 +16,7 @@ body {
     margin: auto;
     padding: 20px;
 }
-.button {
+button {
     padding: 24px 30px;
     text-align: center;
     display: inline-block;
@@ -26,12 +26,14 @@ body {
     background-color: rgb(241, 248, 255);
     border: 2px solid rgb(217, 219, 227);
     border-radius: 8px;
-}
-
-.square {
     color: gray;
 }
 
-.nonsquare {
-    color: red;
+/* .square {
+    color: gray;
+} */
+
+.clear,.delete {
+    background-color:rgb(231, 198, 198);
+    color: white;
 }
