@@ -9,6 +9,29 @@ body {
 }
 .container {
     margin: auto;
-    width: 70%;
+    width: 400px;
     padding: 10px;
+}
+.display{
+    margin: auto;
+    padding: 20px;
+}
+.button {
+    padding: 24px 30px;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    background-color: rgb(241, 248, 255);
+    border: 2px solid rgb(217, 219, 227);
+    border-radius: 8px;
+}
+
+.square {
+    color: gray;
+}
+
+.nonsquare {
+    color: red;
 }
