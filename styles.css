@@ -32,6 +32,7 @@ body {
     font-size: 40px;
     height: 90px;
     text-align: end;
+    max-width: 265px;
 }
 .input{
     height: 20px;
@@ -42,6 +43,8 @@ body {
 .answer{
     padding: 5px;
     padding-top: 15px;
+    font-size: 40px;
+    font-size: 4vw;
 }
 button {
     padding: 20px 20px;

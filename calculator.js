@@ -34,38 +34,63 @@ function operate(operator,a,b){
 
 function populateDisplay(e){
 	input = e.currentTarget.value;
-
 	const numbers = [0,1,2,3,4,5,6,7,8,9];
 	const operators = ['-','+','*','/'];
-	const functionals = ['clear','delete','='];
 
 	let result = '';
-	console.log('hell0');
+	//append and display input for first number 
 	if(input in numbers && operator === ''){
-		console.log('hellonum');
-		console.log(input);
 		answerDisplay.textContent += input;
 		firstNum += input;
 	}
+	//append and display input for second number 
 	else if(input in numbers && operator !== ''){
-		answerDisplay.textContent = input;
+		answerDisplay.innerHTML = secondNum;
+		answerDisplay.textContent += input;
 		secondNum += input;
 	}
+	//user enters a decimal
+	else if(input === '.' && !answerDisplay.textContent.includes(input)){
+		answerDisplay.textContent += input;
+		//making first num a decimal
+		if (operator === ''){
+			firstNum += input;
+		}
+		//making second num a decimal
+		else{
+			secondNum += input;
+		}
+	}
+	//update dispaly when input is an operator
 	else if (operators.includes(input)){
 		inputDisplay.innerHTML = '';
 		inputDisplay.textContent += ' ' + answerDisplay.textContent + ' ' + input;
 		operator = input;
 	}
-	else if (input === '='){
+	//perform operation and diplay results when input is =
+	else if (input === '=' && operator !== ''){
 		firstNum = Number(firstNum);
 		secondNum = Number(secondNum);
-		result = operate(operator,firstNum,secondNum);
-		inputDisplay.textContent += ' ' + secondNum + ' ' + '=';
-		answerDisplay.innerHTML = '';
-		answerDisplay.textContent += result;
-		firstNum = result;
-		operator = '';
-		secondNum = '';
+		console.log(`firstNum: ${firstNum}`);
+		console.log(`secondNum: ${secondNum}`);
+		typeof(firstNum);
+		typeof(secondNum);
+		//check for dividing by 0
+		if (operator === '/' && secondNum === 0){
+			alert('Bleep Bloop! Can\'t divide by 0!');
+			//answerDisplay.textContent += 'Bleep Bloop! Can\'t divide by 0!';
+			clearDisplay();
+		}
+		else{
+			result = operate(operator,firstNum,secondNum);
+			inputDisplay.textContent += ' ' + secondNum + ' ' + '=';
+			answerDisplay.innerHTML = '';
+			answerDisplay.textContent += Number(result.toFixed(3));
+			firstNum = result;
+			operator = '';
+			secondNum = '';
+		}
+		
 	}
 	console.log(result);
 }
@@ -76,6 +101,19 @@ function clearDisplay(){
 	firstNum = '';
 	secondNum = '';
 	operator = '';
+	console.log(answerDisplay.innerHTML);
+}
+
+function backspace(){
+	const displayNum = Number(answerDisplay.innerHTML);
+	if (displayNum == firstNum){
+		answerDisplay.innerHTML = answerDisplay.innerHTML.slice(0,-1);
+		firstNum = firstNum.slice(0,-1);
+	}
+	else if (displayNum == secondNum){
+		answerDisplay.innerHTML = answerDisplay.innerHTML.slice(0,-1);
+		secondNum = secondNum.slice(0,-1);
+	}	
 }
 
 //query selectors
@@ -118,7 +156,7 @@ minusBtn.addEventListener("click",populateDisplay);
 multiplyBtn.addEventListener("click",populateDisplay);
 divideBtn.addEventListener("click",populateDisplay);
 clearBtn.addEventListener("click",clearDisplay);
-deleteBtn.addEventListener("click",clearDisplay);
+deleteBtn.addEventListener("click",backspace);
 equalsBtn.addEventListener("click",populateDisplay);
 
 var firstNum = '';
