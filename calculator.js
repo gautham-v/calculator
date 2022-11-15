@@ -42,31 +42,34 @@ function populateDisplay(e){
 	let result = '';
 	
 	if(input in numbers && operator === ''){
-		display.textContent += input;
+		answerDisplay.textContent += input;
 		firstNum += input;
 	}
 	else if(input in numbers && operator !== ''){
-		display.textContent += input;
+		answerDisplay.textContent = input;
 		secondNum += input;
 	}
 	else if (operators.includes(input)){
-		display.textContent += input;
+		inputDisplay.innerHTML = '';
+		inputDisplay.textContent += ' ' + answerDisplay.textContent + ' ' + input;
 		operator = input;
 	}
 	else if (input === '='){
 		firstNum = Number(firstNum);
 		secondNum = Number(secondNum);
 		result = operate(operator,firstNum,secondNum);
-		answer.textContent += result;
+		inputDisplay.textContent += ' ' + secondNum + ' ' + '=';
+		answerDisplay.innerHTML = '';
+		answerDisplay.textContent += result;
+		firstNum = result;
+		operator = '';
+		secondNum = '';
 	}
 	console.log(result);
 }
 
 function clearDisplay(){
-	console.log(display.textContent);
-	console.log(display.innerHTML);
 	display.innerHTML = '';
-	console.log(display.innerHTML);
 	firstNum = '';
 	secondNum = '';
 	operator = '';
@@ -74,7 +77,8 @@ function clearDisplay(){
 
 //query selectors
 var display = document.querySelector('#display');
-let answer = document.querySelector('.answer');
+var inputDisplay = display.querySelector('.input');
+var answerDisplay = display.querySelector('.answer');
 let zeroBtn = document.querySelector('.zero');
 let oneBtn = document.querySelector('.one');
 let twoBtn = document.querySelector('.two');
